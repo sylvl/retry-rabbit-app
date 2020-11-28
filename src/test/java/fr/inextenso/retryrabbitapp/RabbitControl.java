@@ -19,9 +19,9 @@ public class RabbitControl {
 
   public RabbitControl(AmqpAdmin amqpAdmin, RetryProperties retryProperties,
                        @Value("${spring.cloud.stream.bindings.parking.destination}") String parkingDestinationName,
-                       @Value("${spring.cloud.stream.bindings.success.destination}") String successDestinationName,
+                       @Value("${spring.cloud.stream.bindings.process-out-0.destination}") String successDestinationName,
                        @Value("${spring.cloud.stream.bindings.parking.producer.required-groups}") String parkingGroupName,
-                       @Value("${spring.cloud.stream.bindings.success.producer.required-groups}") String successGroupName,
+                       @Value("${spring.cloud.stream.bindings.process-out-0.producer.required-groups}") String successGroupName,
                        @Value("${spring.cloud.stream.bindings.process-in-0.group}") String inputGroupName,
                        @Value("${spring.cloud.stream.bindings.log.producer.required-groups}") String logGroupName,
                        @Value("${spring.cloud.stream.bindings.log.destination}") String logDestinationName
