@@ -1,8 +1,8 @@
 Demo application featuring RabbitMq, Spring Cloud Stream and Spring Amqp
 
-The app functionalities, nothing useful obviously :-) 
+The app does nothing useful obviously :-) 
 * The app checks if the payload of the input message contains the word "retry", 
-* if so, the app send the message to a _retry-exchange_.
+* if so, the app sends the message to a _retry-exchange_.
 * Depending on the number of retries, the message will be routed to a waiting queue (1 second and 10 seconds), or a parking queue
 * Before sending the message to the parking queue, the app will send a message to a "log queue" with `StreamBridge`
 
