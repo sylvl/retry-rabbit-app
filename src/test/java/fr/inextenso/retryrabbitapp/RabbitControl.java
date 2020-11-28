@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitControl {
   private final AmqpAdmin amqpAdmin;
   private final RetryProperties retryProperties;
-  private final String parkingDestinationName;
   private final String parkingGroupName;
   private final String successDestinationName;
   private final String successGroupName;
@@ -18,7 +17,6 @@ public class RabbitControl {
   private final String logGroupName;
 
   public RabbitControl(AmqpAdmin amqpAdmin, RetryProperties retryProperties,
-                       @Value("${spring.cloud.stream.bindings.parking.destination}") String parkingDestinationName,
                        @Value("${spring.cloud.stream.bindings.process-out-0.destination}") String successDestinationName,
                        @Value("${spring.cloud.stream.bindings.parking.producer.required-groups}") String parkingGroupName,
                        @Value("${spring.cloud.stream.bindings.process-out-0.producer.required-groups}") String successGroupName,
@@ -28,7 +26,6 @@ public class RabbitControl {
   ) {
     this.amqpAdmin = amqpAdmin;
     this.retryProperties = retryProperties;
-    this.parkingDestinationName = parkingDestinationName;
     this.successDestinationName = successDestinationName;
     this.parkingGroupName = parkingGroupName;
     this.successGroupName = successGroupName;
@@ -41,12 +38,12 @@ public class RabbitControl {
     amqpAdmin.deleteExchange(logDestinationName);
     amqpAdmin.deleteExchange(retryProperties.getInputExchangeName());
     amqpAdmin.deleteExchange(retryProperties.getRouterExchangeName());
-    amqpAdmin.deleteExchange(parkingDestinationName);
+    amqpAdmin.deleteExchange(retryProperties.getParkingExchangeName());
     retryProperties.getDelayChannels().forEach((delayChannelName, delayChannelProperties) -> {
       amqpAdmin.deleteQueue(delayChannelProperties.getDestinationName() + "." + retryProperties.getDelayGroupName());
       amqpAdmin.deleteExchange(delayChannelProperties.getDestinationName());
     });
-    amqpAdmin.deleteQueue(parkingDestinationName + "." + parkingGroupName);
+    amqpAdmin.deleteQueue(retryProperties.getParkingExchangeName() + "." + parkingGroupName);
     amqpAdmin.deleteQueue(retryProperties.getInputExchangeName() + "." + inputGroupName);
     amqpAdmin.deleteExchange(successDestinationName);
     try {

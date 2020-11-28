@@ -11,6 +11,8 @@ public class RetryProperties {
 
   private String inputExchangeName;
 
+  private String parkingExchangeName;
+
   private String retryRoutingKey;
 
   private Boolean declareInputChannel;
@@ -49,6 +51,14 @@ public class RetryProperties {
 
   public void setDeclareInputChannel(Boolean declareInputChannel) {
     this.declareInputChannel = declareInputChannel;
+  }
+
+  public String getParkingExchangeName() {
+    return parkingExchangeName;
+  }
+
+  public void setParkingExchangeName(String parkingExchangeName) {
+    this.parkingExchangeName = parkingExchangeName;
   }
 
   public Map<String, DelayChannelProperties> getDelayChannels() {
